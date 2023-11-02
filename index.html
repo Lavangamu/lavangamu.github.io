@@ -14,13 +14,30 @@
         flex-direction: column;
         justify-content: center;
       }
+      .image-container {
+        text-align: center;
+        height: 100%; /* Ensure the container takes the full viewport height */
+      }
       img {
         max-width: 100%;
+        max-height: 80vh; /* Limit the image height to 80% of the viewport height */
         display: block;
         margin: 0 auto; /* Center the image horizontally */
       }
+      .caption {
+        color: white; /* Caption text color */
+        font-size: 1.5em; /* Adjust the font size as needed */
+      }
     </style>
   </head>
+  <body>
+    <div class="image-container">
+      <img src="imageofk.jpg" alt="Centered Image">
+    </div>
+    <p class="caption">Zohaib Pahelwan</p>
+  </body>
+</html>
+
   <body>
     <img src="imageofk.jpg" alt="Centered Image">
   </body>
