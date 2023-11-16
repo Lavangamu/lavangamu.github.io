@@ -40,17 +40,41 @@
 
   <br>
 
+  <button onclick="calculateAttendance()">Calculate Current Attendance</button>
+
+  <div id="result"></div>
+
   <label for="additionalClasses">Additional Classes to Attend:</label>
   <input type="number" id="additionalClasses" min="0" value="0">
 
   <br>
 
-  <button onclick="calculateAttendance()">Calculate</button>
+  <label for="missedClasses">Classes to Miss:</label>
+  <input type="number" id="missedClasses" min="0" value="0">
 
-  <div id="result"></div>
+  <br>
+
+  <button onclick="calculateFutureAttendance()">Calculate Future Attendance</button>
+  <button onclick="calculateMissedAttendance()">Calculate Attendance if Classes are Missed</button>
 
   <script>
     function calculateAttendance() {
+      var totalClasses = parseInt(document.getElementById('totalClasses').value);
+      var attendedClasses = parseInt(document.getElementById('attendedClasses').value);
+
+      if (attendedClasses > totalClasses) {
+        alert('Classes attended cannot be more than total classes.');
+        return;
+      }
+
+      var currentAttendance = (attendedClasses / totalClasses) * 100;
+
+      var resultText = `Current Attendance: ${currentAttendance.toFixed(2)}%`;
+
+      document.getElementById('result').innerHTML = resultText;
+    }
+
+    function calculateFutureAttendance() {
       var totalClasses = parseInt(document.getElementById('totalClasses').value);
       var attendedClasses = parseInt(document.getElementById('attendedClasses').value);
       var additionalClasses = parseInt(document.getElementById('additionalClasses').value);
@@ -60,11 +84,26 @@
         return;
       }
 
-      var currentAttendance = (attendedClasses / totalClasses) * 100;
       var futureAttendance = ((attendedClasses + additionalClasses) / (totalClasses + additionalClasses)) * 100;
 
-      var resultText = `Current Attendance: ${currentAttendance.toFixed(2)}%<br>`;
-      resultText += `Future Attendance (if you attend the next ${additionalClasses} classes): ${futureAttendance.toFixed(2)}%`;
+      var resultText = `Future Attendance (if you attend the next ${additionalClasses} classes): ${futureAttendance.toFixed(2)}%`;
+
+      document.getElementById('result').innerHTML = resultText;
+    }
+
+    function calculateMissedAttendance() {
+      var totalClasses = parseInt(document.getElementById('totalClasses').value);
+      var attendedClasses = parseInt(document.getElementById('attendedClasses').value);
+      var missedClasses = parseInt(document.getElementById('missedClasses').value);
+
+      if (attendedClasses > totalClasses) {
+        alert('Classes attended cannot be more than total classes.');
+        return;
+      }
+
+      var missedAttendance = ((attendedClasses) / (totalClasses + missedClasses)) * 100;
+
+      var resultText = `Attendance if you miss the next ${missedClasses} classes: ${missedAttendance.toFixed(2)}%`;
 
       document.getElementById('result').innerHTML = resultText;
     }
