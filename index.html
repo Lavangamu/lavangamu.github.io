@@ -28,6 +28,8 @@
 
   <h1>Attendance Calculator</h1>
 
+  <p>Note: You can get the total number of classes and classes attended from the "MyCamu Website" or any other source.</p>
+
   <label for="totalClasses">Total Classes:</label>
   <input type="number" id="totalClasses" min="1" value="1">
 
@@ -35,6 +37,11 @@
 
   <label for="attendedClasses">Classes Attended:</label>
   <input type="number" id="attendedClasses" min="0" value="0">
+
+  <br>
+
+  <label for="additionalClasses">Additional Classes to Attend:</label>
+  <input type="number" id="additionalClasses" min="0" value="0">
 
   <br>
 
@@ -46,6 +53,7 @@
     function calculateAttendance() {
       var totalClasses = parseInt(document.getElementById('totalClasses').value);
       var attendedClasses = parseInt(document.getElementById('attendedClasses').value);
+      var additionalClasses = parseInt(document.getElementById('additionalClasses').value);
 
       if (attendedClasses > totalClasses) {
         alert('Classes attended cannot be more than total classes.');
@@ -53,10 +61,10 @@
       }
 
       var currentAttendance = (attendedClasses / totalClasses) * 100;
-      var futureAttendance = ((attendedClasses + 1) / (totalClasses + 1)) * 100;
+      var futureAttendance = ((attendedClasses + additionalClasses) / (totalClasses + additionalClasses)) * 100;
 
       var resultText = `Current Attendance: ${currentAttendance.toFixed(2)}%<br>`;
-      resultText += `Future Attendance (if you attend one more class): ${futureAttendance.toFixed(2)}%`;
+      resultText += `Future Attendance (if you attend the next ${additionalClasses} classes): ${futureAttendance.toFixed(2)}%`;
 
       document.getElementById('result').innerHTML = resultText;
     }
